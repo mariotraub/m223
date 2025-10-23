@@ -30,4 +30,9 @@ public class EntryService {
         Entry entry = entityManager.find(Entry.class, id);
         entityManager.remove(entry);
     }
+
+    @Transactional
+    public Entry updateEntry(Entry entry) {
+        return entityManager.merge(entry);
+    }
 }

@@ -7,6 +7,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -45,5 +46,13 @@ public class EntryController {
     @Operation(summary = "Delete an entry.", description = "Deletes an existing entry.")
     public void delete(@PathParam("id") long id) {
         entryService.deleteEntry(id);
+    }
+
+    @PUT
+    @Operation(summary = "Update an entry.", description = "Updates an existing entry.")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Entry update(Entry entry) {
+        return entryService.updateEntry(entry);
     }
 }
