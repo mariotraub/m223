@@ -6,6 +6,7 @@ import lombok.Data;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,4 +24,7 @@ public class Entry {
 
   @ManyToOne
   private Category category;
+
+  @ManyToMany
+  private List<Tag> tags = List.of();
 }
