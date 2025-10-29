@@ -1,6 +1,42 @@
 const URL = 'http://localhost:8080';
 let entries = [];
 
+let categories = [];
+let tags = [];
+
+const indexCategories = () => {
+    fetch(`${URL}/categories`, {
+        method: 'GET'
+    }).then((result) => {
+        result.json().then((result) => {
+            categories = result;
+            renderCategorySelect();
+        });
+    });
+};
+
+const indexTags = () => {
+    fetch(`${URL}/tags`, {
+        method: 'GET'
+    }).then((result) => {
+        result.json().then((result) => {
+            tags = result;
+        });
+    });
+};
+
+const renderCategorySelect = () => {
+    const select = document.getElementById('category');
+    select.append(
+        ...categories.map((c) => {
+            const option = document.createElement('option');
+            option.text = c.title;
+            option.value = c.id;
+            return option;
+        })
+    );
+}
+
 const dateAndTimeToDate = (dateString, timeString) => {
     return new Date(`${dateString}T${timeString}`).toISOString();
 };
@@ -11,6 +47,9 @@ const createEntry = (e) => {
     const entry = {};
     entry['checkIn'] = dateAndTimeToDate(formData.get('checkInDate'), formData.get('checkInTime'));
     entry['checkOut'] = dateAndTimeToDate(formData.get('checkOutDate'), formData.get('checkOutTime'));
+    entry['category'] = {
+        "id": parseInt(formData.get('category'))
+    };
 
     fetch(`${URL}/entries`, {
         method: 'POST',
@@ -71,5 +110,6 @@ const renderEntries = () => {
 document.addEventListener('DOMContentLoaded', function(){
     const createEntryForm = document.querySelector('#createEntryForm');
     createEntryForm.addEventListener('submit', createEntry);
+    indexCategories();
     indexEntries();
 });

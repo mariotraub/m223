@@ -1,6 +1,6 @@
 package ch.zli.m223.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import lombok.Data;
@@ -24,10 +24,8 @@ public class Entry {
   private LocalDateTime checkOut;
 
   @ManyToOne
-  @JsonManagedReference
   private Category category;
 
   @ManyToMany
-  @JsonManagedReference
   private List<Tag> tags = List.of();
 }

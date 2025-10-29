@@ -1,6 +1,6 @@
 package ch.zli.m223.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +24,6 @@ public class Tag {
     private String title;
 
     @ManyToMany(mappedBy = "tags")
-    @JsonBackReference
+    @JsonIgnore
     private List<Entry> entries = List.of();
 }

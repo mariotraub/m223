@@ -1,6 +1,6 @@
 package ch.zli.m223.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +25,6 @@ public class Category {
     private String title;
 
     @OneToMany(mappedBy = "category")
-    @JsonBackReference
+    @JsonIgnore
     private List<Entry> entries = List.of();
 }
