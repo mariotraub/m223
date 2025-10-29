@@ -7,5 +7,7 @@ Künstler können Alben mit Songs hochladen die User (oder andere Künstler) dan
 - Artist (Spezifikation von User)
 - Song
 - Album
+
+![UML-CLass-Diagram](chopify.uml.drawio.png)
 ## Motivation: Was ist die Motivation für diese Idee? Haben Sie einen persönlichen Nutzen davon?
 Ich habe keinen wirklichen Nutzen davon, ich finde es aber ein spannendes Projekt.
