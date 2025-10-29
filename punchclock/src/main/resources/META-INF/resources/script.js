@@ -21,8 +21,20 @@ const indexTags = () => {
     }).then((result) => {
         result.json().then((result) => {
             tags = result;
+            renderTagSelect();
         });
     });
+};
+
+const renderTagSelect = () => {
+    const select = document.getElementById('tags');
+        select.append(...tags.map((tag) => {
+            const option = document.createElement('option');
+            option.text = tag.title;
+            option.value = tag.id;
+            return option;
+        })
+    );
 };
 
 const renderCategorySelect = () => {
@@ -50,6 +62,11 @@ const createEntry = (e) => {
     entry['category'] = {
         "id": parseInt(formData.get('category'))
     };
+    entry["tags"] = formData.getAll("tags").map((tag) => {
+        return {
+            "id": tag
+        };
+    });
 
     fetch(`${URL}/entries`, {
         method: 'POST',
@@ -111,5 +128,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const createEntryForm = document.querySelector('#createEntryForm');
     createEntryForm.addEventListener('submit', createEntry);
     indexCategories();
+    indexTags();
     indexEntries();
 });
