@@ -48,10 +48,22 @@ const renderEntries = () => {
     const display = document.querySelector('#entryDisplay');
     display.innerHTML = '';
     entries.forEach((entry) => {
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = "Delete";
+        deleteButton.onclick = () => {
+            fetch(`${URL}/entries/${entry.id}`, {
+                method: 'DELETE',
+            }).then(() => {
+                indexEntries()
+            });
+        }
+        console.log(deleteButton);
+
         const row = document.createElement('tr');
         row.appendChild(createCell(entry.id));
         row.appendChild(createCell(new Date(entry.checkIn).toLocaleString()));
         row.appendChild(createCell(new Date(entry.checkOut).toLocaleString()));
+        row.appendChild(deleteButton)
         display.appendChild(row);
     });
 };
