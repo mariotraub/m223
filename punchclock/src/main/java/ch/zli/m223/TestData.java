@@ -3,6 +3,7 @@ package ch.zli.m223;
 import ch.zli.m223.model.Category;
 import ch.zli.m223.model.Entry;
 import ch.zli.m223.model.Tag;
+import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.runtime.Startup;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
+@IfBuildProfile("dev")
 public class TestData {
     @Inject
     EntityManager em;

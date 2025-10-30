@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import ch.zli.m223.model.Entry;
+import jakarta.ws.rs.NotFoundException;
 
 @ApplicationScoped
 public class EntryService {
@@ -28,6 +29,11 @@ public class EntryService {
     @Transactional
     public void deleteEntry(long id) {
         Entry entry = entityManager.find(Entry.class, id);
+
+        if (entry == null) {
+            throw new NotFoundException();
+        }
+
         entityManager.remove(entry);
     }
 
