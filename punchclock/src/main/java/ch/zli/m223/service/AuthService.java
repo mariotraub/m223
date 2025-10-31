@@ -5,6 +5,7 @@ import io.quarkus.elytron.security.common.BcryptUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.core.Response;
 import io.smallrye.jwt.build.Jwt;
 
@@ -21,7 +22,9 @@ public class AuthService {
         try {
             User user = findUserByName(username);
 
-            assert Objects.equals(user.getPassword(), BcryptUtil.bcryptHash(password));
+            if (!BcryptUtil.matches(password, user.getPassword())) {
+                throw new BadRequestException("Invalid password");
+            }
 
             String token =
                     Jwt.upn(user.getName()).issuer("https://example.com/issuer")
@@ -34,6 +37,9 @@ public class AuthService {
                     .build();
 
         } catch (Exception e) {
+            if (e instanceof BadRequestException) {
+                throw e;
+            }
             return Response.serverError().entity(e.getMessage()).build();
         }
     }
