@@ -2,6 +2,7 @@ package ch.zli.m223.controller;
 
 import ch.zli.m223.model.Tag;
 import ch.zli.m223.service.TagService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Path("/tags")
 @org.eclipse.microprofile.openapi.annotations.tags.Tag(name = "Tags", description = "Handling of tags")
+@RolesAllowed({"User", "Admin"})
 public class TagController {
 
     @Inject

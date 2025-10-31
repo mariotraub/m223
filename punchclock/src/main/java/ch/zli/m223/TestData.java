@@ -3,6 +3,7 @@ package ch.zli.m223;
 import ch.zli.m223.model.Category;
 import ch.zli.m223.model.Entry;
 import ch.zli.m223.model.Tag;
+import ch.zli.m223.model.User;
 import io.quarkus.arc.profile.IfBuildProfile;
 import io.quarkus.runtime.Startup;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -25,6 +26,15 @@ public class TestData {
         List<Tag> tags = createTags();
         List<Category> categories = createCategories();
         createEntries(tags, categories);
+        createUser();
+    }
+
+    @Transactional
+    void createUser() {
+        User user = new User();
+        user.setName("mario");
+        user.setPassword("mario");
+        em.persist(user);
     }
 
     @Transactional
