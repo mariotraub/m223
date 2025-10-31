@@ -22,7 +22,7 @@ import ch.zli.m223.service.EntryService;
 
 @Path("/entries")
 @Tag(name = "Entries", description = "Handling of entries")
-@RolesAllowed({"User", "Admin"})
+@RolesAllowed("Admin")
 public class EntryController {
 
     @Inject

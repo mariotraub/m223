@@ -11,6 +11,8 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Data
 @Entity
 @Table(name = "application_user")
@@ -24,6 +26,8 @@ public class User {
 
     @Setter(AccessLevel.NONE)
     private String password;
+
+    private Set<String> roles;
 
     public void setPassword(String password) {
         this.password = BcryptUtil.bcryptHash(password);

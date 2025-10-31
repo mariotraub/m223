@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 @IfBuildProfile("dev")
@@ -34,7 +35,14 @@ public class TestData {
         User user = new User();
         user.setName("mario");
         user.setPassword("mario");
+        user.setRoles(Set.of("User"));
         em.persist(user);
+
+        User admin  = new User();
+        admin.setName("admin");
+        admin.setPassword("admin");
+        admin.setRoles(Set.of("User", "Admin"));
+        em.persist(admin);
     }
 
     @Transactional

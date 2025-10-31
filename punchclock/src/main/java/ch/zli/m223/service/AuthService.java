@@ -25,7 +25,7 @@ public class AuthService {
 
             String token =
                     Jwt.upn(user.getName()).issuer("https://example.com/issuer")
-                            .groups(new HashSet<>(Arrays.asList("User", "Admin")))
+                            .groups(user.getRoles())
                             .sign();
 
             return Response
